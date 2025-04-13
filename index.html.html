@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie - Scopri il tuo Home Restaurant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-orange-500 {
+            background-color: #FF7F50;
+        }
+        .text-orange-500 {
+            color: #FF7F50;
+        }
+        .border-orange-500 {
+            border-color: #FF7F50;
+        }
+        .bg-orange-100 {
+            background-color: #FFEEE5;
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #result-container {
+            display: none;
+        }
+        #signup-form {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 mr-2">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <path d="M50,90 C40,90 30,85 25,80 L25,40 C25,30 35,20 50,20 C65,20 75,30 75,40 L75,80 C70,85 60,90 50,90 Z" fill="#FFD700" stroke="#000" stroke-width="3"/>
+                        <path d="M60,70 C60,75 55,80 50,80 C45,80 40,75 40,70 L40,60 C40,55 45,50 50,50 C55,50 60,55 60,60 L60,70 Z" fill="#FF7F50" stroke="#000" stroke-width="1"/>
+                        <rect x="30" y="40" width="10" height="10" fill="#000"/>
+                        <path d="M25,40 L20,35 M75,40 L80,35" stroke="#000" stroke-width="3"/>
+                        <path d="M50,15 L50,10" stroke="#000" stroke-width="3"/>
+                        <path d="M40,15 C40,15 45,5 60,15" stroke="#000" stroke-width="1" fill="none"/>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold">homie</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-orange-100 py-12 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">Scopri la tua esperienza culinaria autentica</h2>
+            <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">Homie connette chef locali, host e ospiti per trasformare ogni pasto in un'esperienza autentica, sociale e accessibile.</p>
+            <button id="start-quiz-btn" class="bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-orange-600 transition-all shadow-md">Scopri il tuo Homie interiore</button>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="py-12 px-4" id="quiz-section">
+        <div class="quiz-container">
+            <div id="quiz">
+                <h3 class="text-2xl font-bold text-center mb-8">Che tipo di Homie saresti?</h3>
+                
+                <div class="quiz-question mb-12">
+                    <p class="text-lg mb-4">Qual è il tuo rapporto con la cucina?</p>
+                    <div class="grid gap-4 md:grid-cols-3">
+                        <div class="quiz-option p-4 bg-white rounded-lg border border-gray-200 shadow-sm cursor-pointer text-center" data-type="cuoco">
+                            <h4 class="font-medium text-lg mb-2">Amo cucinare</h4>
+                            <p class="text-sm text-gray-500">La cucina è la mia passione, adoro preparare piatti per gli altri</p>
+                        </div>
+                        <div class="quiz-option p-4 bg-white rounded-lg border border-gray-200 shadow-sm cursor-pointer text-center" data-type="host">
+                            <h4 class="font-medium text-lg mb-2">Mi piace ospitare</h4>
+                            <p class="text-sm text-gray-500">Amo accogliere le persone e creare un ambiente conviviale</p>
+                        </div>
+                        <div class="quiz-option p-4 bg-white rounded-lg border border-gray-200 shadow-sm cursor-pointer text-center" data-type="ospite">
+                            <h4 class="font-medium text-lg mb-2">Adoro scoprire</h4>
+                            <p class="text-sm text-gray-500">Mi piace provare nuove esperienze gastronomiche e incontrare persone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Container -->
+            <div id="result-container" class="bg-white p-6 rounded-lg shadow-md text-center">
+                <div id="cuoco-result" class="result-type hidden">
+                    <h3 class="text-2xl font-bold mb-3">Sei un Homie Cuoco!</h3>
+                    <p class="mb-6">Con Homie puoi esprimere la tua creatività culinaria, guadagnare e conoscere nuove persone. Trasforma la tua passione in un'attività gratificante.</p>
+                </div>
+                <div id="host-result" class="result-type hidden">
+                    <h3 class="text-2xl font-bold mb-3">Sei un Homie Host!</h3>
+                    <p class="mb-6">Con Homie puoi ospitare cene indimenticabili nella tua casa, collaborando con cuochi talentuosi e accogliendo ospiti curiosi.</p>
+                </div>
+                <div id="ospite-result" class="result-type hidden">
+                    <h3 class="text-2xl font-bold mb-3">Sei un Homie Ospite!</h3>
+                    <p class="mb-6">Con Homie puoi scoprire esperienze culinarie autentiche, conoscere nuove tradizioni e persone in un ambiente accogliente e familiare.</p>
+                </div>
+                <button id="signup-btn" class="bg-orange-500 text-white px-6 py-2 rounded-full text-lg font-medium hover:bg-orange-600 transition-all">Resta aggiornato sul lancio</button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h3 class="text-2xl font-bold mb-4">Unisciti alla community di Homie</h3>
+                <p class="text-gray-600 mb-6">Lascia i tuoi dati per ricevere aggiornamenti sul lancio e accesso prioritario alla piattaforma.</p>
+                
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCyW_0fWJ-FVL1yXUxI-r-vgYUGlfz-Tx4jFzQHTutlPydTw/viewform?usp=dialog" target="_blank" class="inline-block w-full bg-orange-500 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-orange-600 transition-all text-center">Iscriviti ora</a>
+                
+                <div class="mt-4">
+                    <button id="back-btn" class="text-gray-500 text-sm hover:text-orange-500">← Torna indietro</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 px-4 bg-gray-100">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-10">Perché scegliere Homie</h2>
+            
+            <div class="grid gap-8 md:grid-cols-3">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Esperienze Autentiche</h3>
+                    <p class="text-gray-600">Scopri piatti unici preparati con passione da cuochi locali in ambienti accoglienti e familiari.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Community Inclusiva</h3>
+                    <p class="text-gray-600">Unisciti a una rete di appassionati di cucina, host e ospiti che condividono la passione per il cibo e le relazioni umane.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Opportunità Economiche</h3>
+                    <p class="text-gray-600">Trasforma la tua passione per la cucina o l'ospitalità in un'opportunità di guadagno flessibile e gratificante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="w-8 h-8 mr-2">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <!-- Fully circular pot body (footer version) -->
+                            <circle cx="50" cy="60" r="35" fill="#FFD700" stroke="#FFF" stroke-width="2"/>
+                            
+                            <!-- Handle on left side -->
+                            <path d="M15,60 L5,60" stroke="#FFF" stroke-width="2.5" fill="none"/>
+                            
+                            <!-- Handle on right side -->
+                            <path d="M85,60 L95,60" stroke="#FFF" stroke-width="2.5" fill="none"/>
+                            
+                            <!-- Lid line -->
+                            <path d="M25,35 L75,35" stroke="#FFF" stroke-width="2"/>
+                            
+                            <!-- Lid handle -->
+                            <circle cx="50" cy="30" r="5" fill="#FFD700" stroke="#FFF" stroke-width="1.5"/>
+                            
+                            <!-- Door -->
+                            <path d="M50,80 C42,80 35,73 35,65 L35,55 C35,47 42,40 50,40 C58,40 65,47 65,55 L65,65 C65,73 58,80 50,80 Z" fill="#FF7F50" stroke="#FFF" stroke-width="1.5"/>
+                            
+                            <!-- Door handle -->
+                            <circle cx="58" cy="60" r="2" fill="#FFF"/>
+                            
+                            <!-- Windows - 4 small windows -->
+                            <rect x="30" y="50" width="6" height="6" fill="#FFF"/>
+                            <rect x="30" y="60" width="6" height="6" fill="#FFF"/>
+                            
+                            <!-- Steam elements -->
+                            <path d="M30,25 C35,18 32,10 25,15" stroke="#FFF" stroke-width="1.5" fill="none"/>
+                            <path d="M50,15 C55,8 52,0 45,5" stroke="#FFF" stroke-width="1.5" fill="none"/>
+                            <path d="M70,25 C75,18 72,10 65,15" stroke="#FFF" stroke-width="1.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold">homie</h2>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p>© 2025 Homie Srl. Tutti i diritti riservati.</p>
+                    <p class="text-sm text-gray-400 mt-1">Via Carlo Conti Rossini 38, Roma</p>
+                    <p class="text-sm mt-2">
+                        <a href="mailto:homieunint@gmail.com" class="text-orange-300 hover:text-orange-100">homieunint@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startQuizBtn = document.getElementById('start-quiz-btn');
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            const resultContainer = document.getElementById('result-container');
+            const signupBtn = document.getElementById('signup-btn');
+            const signupForm = document.getElementById('signup-form');
+            const backBtn = document.getElementById('back-btn');
+            const userTypeInput = document.getElementById('user-type');
+            const resultTypes = document.querySelectorAll('.result-type');
+            
+            // Start quiz
+            startQuizBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: document.getElementById('quiz-section').offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Quiz option selection
+            quizOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    userTypeInput.value = type;
+                    
+                    // Hide all results
+                    resultTypes.forEach(result => {
+                        result.classList.add('hidden');
+                    });
+                    
+                    // Show specific result
+                    document.getElementById(`${type}-result`).classList.remove('hidden');
+                    
+                    // Show result container
+                    document.getElementById('quiz').style.display = 'none';
+                    resultContainer.style.display = 'block';
+                });
+            });
+            
+            // Show signup form
+            signupBtn.addEventListener('click', function() {
+                // Redirect directly to Google Form
+                window.open('https://docs.google.com/forms/d/e/1FAIpQLSfCyW_0fWJ-FVL1yXUxI-r-vgYUGlfz-Tx4jFzQHTutlPydTw/viewform?usp=dialog', '_blank');
+            });
+            
+            // Back button
+            backBtn.addEventListener('click', function() {
+                signupForm.style.display = 'none';
+                resultContainer.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
