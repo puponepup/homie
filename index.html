@@ -18,8 +18,17 @@
         .bg-orange-100 {
             background-color: #FFEEE5;
         }
+        .hover\:bg-orange-600:hover {
+            background-color: #E67242;
+        }
+        .hover\:text-orange-500:hover {
+            color: #FF7F50;
+        }
         .transition-all {
             transition: all 0.3s ease;
+        }
+        .quiz-option {
+            cursor: pointer;
         }
         .quiz-option:hover {
             transform: translateY(-2px);
@@ -125,7 +134,7 @@
     <!-- Features Section -->
     <section class="py-12 px-4 bg-gray-100">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-10">Perché scegliere Homie</h2>
+                            <h2 class="text-3xl font-bold text-center mb-10">FUTURO DEL SOCIAL EATING</h2>
             
             <div class="grid gap-8 md:grid-cols-3">
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -166,40 +175,7 @@
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <div class="w-8 h-8 mr-2">
-                        <svg viewBox="0 0 100 100" class="w-full h-full">
-                            <!-- Fully circular pot body (footer version) -->
-                            <circle cx="50" cy="60" r="35" fill="#FFD700" stroke="#FFF" stroke-width="2"/>
-                            
-                            <!-- Handle on left side -->
-                            <path d="M15,60 L5,60" stroke="#FFF" stroke-width="2.5" fill="none"/>
-                            
-                            <!-- Handle on right side -->
-                            <path d="M85,60 L95,60" stroke="#FFF" stroke-width="2.5" fill="none"/>
-                            
-                            <!-- Lid line -->
-                            <path d="M25,35 L75,35" stroke="#FFF" stroke-width="2"/>
-                            
-                            <!-- Lid handle -->
-                            <circle cx="50" cy="30" r="5" fill="#FFD700" stroke="#FFF" stroke-width="1.5"/>
-                            
-                            <!-- Door -->
-                            <path d="M50,80 C42,80 35,73 35,65 L35,55 C35,47 42,40 50,40 C58,40 65,47 65,55 L65,65 C65,73 58,80 50,80 Z" fill="#FF7F50" stroke="#FFF" stroke-width="1.5"/>
-                            
-                            <!-- Door handle -->
-                            <circle cx="58" cy="60" r="2" fill="#FFF"/>
-                            
-                            <!-- Windows - 4 small windows -->
-                            <rect x="30" y="50" width="6" height="6" fill="#FFF"/>
-                            <rect x="30" y="60" width="6" height="6" fill="#FFF"/>
-                            
-                            <!-- Steam elements -->
-                            <path d="M30,25 C35,18 32,10 25,15" stroke="#FFF" stroke-width="1.5" fill="none"/>
-                            <path d="M50,15 C55,8 52,0 45,5" stroke="#FFF" stroke-width="1.5" fill="none"/>
-                            <path d="M70,25 C75,18 72,10 65,15" stroke="#FFF" stroke-width="1.5" fill="none"/>
-                        </svg>
-                    </div>
-                    <h2 class="text-xl font-bold">homie</h2>
+                    <h2 class="text-xl font-bold text-white">HOMIE</h2>
                 </div>
                 
                 <div class="text-center md:text-right">
@@ -223,6 +199,7 @@
             const backBtn = document.getElementById('back-btn');
             const userTypeInput = document.getElementById('user-type');
             const resultTypes = document.querySelectorAll('.result-type');
+            const quizElement = document.getElementById('quiz');
             
             // Start quiz
             startQuizBtn.addEventListener('click', function() {
@@ -236,7 +213,11 @@
             quizOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     const type = this.getAttribute('data-type');
-                    userTypeInput.value = type;
+                    console.log('Option clicked:', type); // Debugging
+                    
+                    if (userTypeInput) {
+                        userTypeInput.value = type;
+                    }
                     
                     // Hide all results
                     resultTypes.forEach(result => {
@@ -244,25 +225,40 @@
                     });
                     
                     // Show specific result
-                    document.getElementById(`${type}-result`).classList.remove('hidden');
+                    const resultElement = document.getElementById(`${type}-result`);
+                    if (resultElement) {
+                        resultElement.classList.remove('hidden');
+                    }
                     
                     // Show result container
-                    document.getElementById('quiz').style.display = 'none';
-                    resultContainer.style.display = 'block';
+                    if (quizElement) {
+                        quizElement.style.display = 'none';
+                    }
+                    if (resultContainer) {
+                        resultContainer.style.display = 'block';
+                    }
                 });
             });
             
-            // Show signup form
-            signupBtn.addEventListener('click', function() {
-                // Redirect directly to Google Form
-                window.open('https://docs.google.com/forms/d/e/1FAIpQLSfCyW_0fWJ-FVL1yXUxI-r-vgYUGlfz-Tx4jFzQHTutlPydTw/viewform?usp=dialog', '_blank');
-            });
+            // Show signup form / redirect to Google Form
+            if (signupBtn) {
+                signupBtn.addEventListener('click', function() {
+                    // Redirect directly to Google Form
+                    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfCyW_0fWJ-FVL1yXUxI-r-vgYUGlfz-Tx4jFzQHTutlPydTw/viewform?usp=dialog', '_blank');
+                });
+            }
             
             // Back button
-            backBtn.addEventListener('click', function() {
-                signupForm.style.display = 'none';
-                resultContainer.style.display = 'block';
-            });
+            if (backBtn) {
+                backBtn.addEventListener('click', function() {
+                    if (signupForm) {
+                        signupForm.style.display = 'none';
+                    }
+                    if (resultContainer) {
+                        resultContainer.style.display = 'block';
+                    }
+                });
+            }
         });
     </script>
 </body>
